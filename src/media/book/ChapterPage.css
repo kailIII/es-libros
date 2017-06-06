@@ -1,3 +1,9 @@
+div.container-markdown {
+  padding: 14px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
 h2.book-markdown {
   margin-top: 40px;
   text-align: center;
@@ -5,40 +11,28 @@ h2.book-markdown {
 
 h3.book-markdown {
   font-family: 'ITC Charter';
-  margin-left: auto;
-  margin-right: auto;
   font-size: 22px;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding: 14px;
   text-rendering: optimizeLegibility;
-  max-width: 700px;
   border-bottom:1px solid #CCC;
-  padding-bottom:3px;
+  padding:0 6px 3px 6px;
 }
 
 h4.book-markdown {
   font-family: 'ITC Charter';
   font-size: 21px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding: 14px;
   text-rendering: optimizeLegibility;
-  max-width: 700px;
   padding-bottom:3px;
 }
 
 ul.book-markdown {
   font-family: 'ITC Charter';
-  margin-left: auto;
-  margin-right: auto;
   font-size: 21px;
   line-height: 33.1833px;
-  padding: 14px;
   text-rendering: optimizeLegibility;
-  max-width: 700px;
   list-style-position: inside;
   list-style-type: square;
 }
@@ -49,17 +43,13 @@ p.book-markdown {
   font-weight: 400;
   letter-spacing: -0.0666667px;
   line-height: 33.1833px;
-  margin: auto;
-  padding: 14px;
   text-rendering: optimizeLegibility;
   text-align: left;
   text-indent: 20px;
-  max-width: 700px;
 }
 
 code.book-markdown {
   font-family: 'ITC Charter';
-  max-width: 700px;
   overflow-y: auto;
   display: block;
 }
@@ -76,9 +66,7 @@ pre.book-markdown {
   display: block;
   font-size: 16px;
   margin: auto;
-  padding: 14px;
   text-align: left;
-  max-width: 700px;
 }
 
 .next-chapter {
@@ -87,7 +75,6 @@ pre.book-markdown {
     color: white;
     padding: 15px 0px;
     width: 100%;
-    max-width: 700px;
     display: block;
     text-align: center;
     text-decoration: none;
