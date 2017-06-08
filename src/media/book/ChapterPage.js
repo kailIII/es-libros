@@ -77,8 +77,8 @@ class ChapterPage extends Component {
         <div className="container-markdown">
           <h2 className="book-markdown">{title}</h2>
           { markdownToComponentArray(this.state.markdown, 'book-markdown') }
-          <NextChapterButton bookId={bookId} chapterIndex={nextChapter} />
         </div>
+          <NextChapterButton bookId={bookId} chapterIndex={nextChapter} />
       </div>
     )
   }

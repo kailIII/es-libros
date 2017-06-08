@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom'
-import './logo.svg';
 import './App.css';
 import RouterNavBar from './NavBar/RouterNavBar.js'
 

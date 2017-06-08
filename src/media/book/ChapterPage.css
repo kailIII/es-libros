@@ -11,8 +11,8 @@ h2.book-markdown {
 
 h3.book-markdown {
   font-family: 'ITC Charter';
+  margin-top: 40px;
   font-size: 22px;
-  margin-top: 20px;
   margin-bottom: 20px;
   text-rendering: optimizeLegibility;
   border-bottom:1px solid #CCC;
