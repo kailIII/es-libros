@@ -10,6 +10,7 @@
     "body-parser": "^1.17.1",
     "client-sessions": "^0.8.0",
     "crypto-js": "^3.1.9-1",
+    "directory-tree": "^2.0.0",
     "express": "^4.15.2",
     "nedb": "^1.8.0",
     "react": "^15.5.4",
@@ -38,8 +39,9 @@
     "eject": "react-scripts eject",
     "tsc": "tsc ./backend/server.ts --lib es2015",
     "server": "node ./backend/server.js",
-    "addUser": "tsc ./backend/db/addUser.ts && node ./backend/db/addUser.js",
-    "removeFields": "tsc ./backend/db/removeFields.ts && node ./backend/db/removeFields.js",
-    "addFields": "tsc ./backend/db/addFields.ts && node ./backend/db/addFields.js"
+    "addBook": "make ./backend/library/addBook.js && node ./backend/library/addBook.js",
+    "addUser": "make backend/db/addUser.js && node ./backend/db/addUser.js",
+    "removeFields": "make backend/db/removeFields.js && node ./backend/db/removeFields.js",
+    "addFields": "make backend/db/addFields.js && node ./backend/db/addFields.js"
   }
 }

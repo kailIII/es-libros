@@ -2,8 +2,8 @@ import * as fs from "fs";
 import * as path from "path";
 import SiteUpdate from '../db/SiteUpdate'
 
-export const bookIndex = require('../media/bookIndex.json')
-export const lyricsIndex = require('../media/lyricsIndex.json')
+export const bookIndex = require('../media/books/index.json')
+export const lyricsIndex = require('../media/lyrics/index.json')
 export const changelog: SiteUpdate[]  = require('../media/changelog.json')
 
 const bookPath = path.join(__dirname, '../media/books')
