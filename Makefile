@@ -9,3 +9,6 @@
 
 ./backend/library/addBook.js: ./backend/library/addBook.ts
 	node_modules/.bin/tsc ./backend/library/addBook.ts
+
+./backend/library/updateChangelog.js: ./backend/library/updateChangelog.ts ./backend/db/SiteUpdate.ts
+	node_modules/.bin/tsc ./backend/library/updateChangelog.ts

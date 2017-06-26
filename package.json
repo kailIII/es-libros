@@ -42,6 +42,7 @@
     "addBook": "make ./backend/library/addBook.js && node ./backend/library/addBook.js",
     "addUser": "make backend/db/addUser.js && node ./backend/db/addUser.js",
     "removeFields": "make backend/db/removeFields.js && node ./backend/db/removeFields.js",
+    "updateChangelog": "make backend/library/updateChangelog.js && node ./backend/library/updateChangelog.js",
     "addFields": "make backend/db/addFields.js && node ./backend/db/addFields.js"
   }
 }
