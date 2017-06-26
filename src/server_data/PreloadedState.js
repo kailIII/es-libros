@@ -23,7 +23,6 @@ const testState = {
       "youtube":"https://www.youtube.com/embed/7QdVFQhkL8g"
     }
   ],
-  bookmarks: {},
   changelog: [
     {
       date: 1495995097127,

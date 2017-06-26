@@ -1,4 +1,4 @@
-import { bookIndex, lyricsIndex, bookmarks, changelog } from './PreloadedState.js'
+import { bookIndex, lyricsIndex, changelog } from './PreloadedState.js'
 
 
 const findBookById = (bookId) => {
@@ -39,14 +39,6 @@ const getChapterByIndex = (bookId, chapterIndex) => {
   return null
 }
 
-const findBookmarkByBookId = (bookId) => {
-  const bookKey = '' + bookId
-  const key = Object.keys(bookmarks).find((key) => {
-    return key ===  bookKey
-  })
-  return key && bookmarks[key]
-}
-
 const changelogMarkdown = changelog ? changelog.reduce((acc, update) => acc + `- ${update.text}\n`, '')
                                     : ''
 
@@ -54,7 +46,6 @@ module.exports = {
   bookIndex,
   lyricsIndex,
   changelogMarkdown,
-  findBookmarkByBookId,
   findBookById,
   findSongById,
   getChapterByIndex,

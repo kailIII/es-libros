@@ -4,19 +4,14 @@ import Bookmark from 'react-icons/lib/md/bookmark';
 import Settings from 'react-icons/lib/md/settings';
 
 import { computeScrollFraction } from '../dom/Scroll.js'
-import { addBookmark, unauthorizedResponseHandler } from '../api.js'
-import { addBookmark as addBookmarkMutation } from '../server_data/PreloadedStateMutations.js'
+import { addBookmark } from '../storage/storage.js'
 
 export const saveBookmark = (bookId, chapterIndex) => {
-  const fraction = computeScrollFraction()
-  const success = () => {
-      addBookmarkMutation(bookId, chapterIndex, fraction)
-      window.alert('Marcador guardado! Si cierras esta página podrás seguir leyendo desde la misma posición cuando regreses.')
-    }
-  const failiure = unauthorizedResponseHandler()
-
-  addBookmark(bookId, chapterIndex, fraction)
-    .then(success, failiure)
+  if (!isNaN(bookId) && !isNaN(chapterIndex)) {
+    const fraction = computeScrollFraction()
+    addBookmark(bookId, chapterIndex, fraction)
+    window.alert('Bookmark saved! If you close this tab, you will be able to resume reading from this position.')
+  }
 }
 
 export const SaveBookmarkAction = (props) => {
@@ -24,9 +19,14 @@ export const SaveBookmarkAction = (props) => {
     bookId,
     chapterIndex,
   } = props
-  return <a className="navbar navbar-icon"
-    onClick={() => saveBookmark(bookId, chapterIndex)}><Bookmark /></a>
-}
+
+  const bookIdNumber = parseInt(bookId, 10)
+  const chapterIndexNumber = parseInt(chapterIndex, 10)
+  return (
+    <a className="navbar navbar-icon" onClick={ () => saveBookmark(bookIdNumber, chapterIndexNumber) }>
+      <Bookmark />
+    </a>
+  )}
 
 export const OpenSettingsAction = () => {
   return <Link className="navbar" to="/settings"><Settings /></Link>

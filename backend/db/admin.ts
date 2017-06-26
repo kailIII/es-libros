@@ -29,18 +29,6 @@ export const updateUserLastVisit = (username: string, lastVisit: number,
   userdb.update({ username: lowercaseName }, { $set: {lastVisit} }, {}, callback)
 }
 
-export const addBookmarkToUser = (username: string, bookId: number,
-    chapterIndex: number, bookmarkFraction: number, callback: (err: Error) => void) => {
-    findUser(username, (user) => {
-        if (user) {
-            user.addBookmark(bookId, chapterIndex, bookmarkFraction)
-            updateUser(username, user, callback)
-        } else {
-            callback(Error('User not found'))
-        }
-    })
-}
-
 export const addUser = (username: string, plainPassword: string,
   callback: (error: Error, username: User) => void) => {
   const lowercaseName = username.toLowerCase()

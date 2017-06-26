@@ -62,11 +62,7 @@ app.get('/api/books/read', validateUserInDB, validateReadBook, (req, res) => {
     if (err)
       res.status(500).send(err)
     else {
-        const user = session.getUserObjectFromSession(req)
-        const bookmark = user.findBookmark(bookId, chapterIndex)
-        const fraction = bookmark && bookmark.fraction
-        const resp = { markdown: data.toString(), bookmark: fraction }
-        res.status(200).send(resp)
+        res.status(200).send(data.toString())
     }
   })
 })
@@ -79,21 +75,6 @@ app.get('/api/lyrics/read', validateUserLoggedIn, validateReadLyrics, (req, res)
       else
         res.status(200).send(data.toString())
   })
-})
-
-app.post('/api/bookmark', validateUserLoggedIn, validateAddBookmark, (req, res) => {
-    const {
-        bookId,
-        chapterIndex,
-        bookmarkFraction,
-    } = req.body
-    const username: any = session.getUserFromSession(req)
-    dbAdmin.addBookmarkToUser(username, bookId, chapterIndex, bookmarkFraction, (err) => {
-      if (err)
-        res.status(500).send(err)
-      else
-        res.status(200).send('OK')
-    })
 })
 
 app.post('/api/feedback', validateUserLoggedIn, (req, res) => {

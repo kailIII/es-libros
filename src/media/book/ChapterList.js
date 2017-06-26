@@ -7,8 +7,10 @@ import './ChapterList.css'
 import BottomButton from '../../comp/BottomButton.js'
 import {
   getChapterListById,
-  findBookmarkByBookId,
 } from '../../server_data/PreloadedStateQueries.js'
+import {
+  findBookmark,
+} from '../../storage/storage.js'
 
 const ChapterItem = (props) => {
   const {
@@ -28,11 +30,11 @@ const ChapterItem = (props) => {
 
 const getStartButtonProps = (bookId) => {
     const startLinkUrl = `/book/${bookId}/`
-    const bookmark = findBookmarkByBookId(bookId)
+    const bookmark = findBookmark(bookId)
 
     if (bookmark !== undefined)
       return {
-        to: startLinkUrl + bookmark.chapterIndex,
+        to: startLinkUrl + bookmark.chapterIndex + '?bookmark=1',
         text: 'Continuar',
         iconClass: Bookmark,
       }
