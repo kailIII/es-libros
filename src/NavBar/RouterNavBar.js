@@ -11,8 +11,9 @@ import Settings from '../settings/Settings.js'
 import SubmitFeedback from '../settings/SubmitFeedback.js'
 import PreloadedState from '../server_data/PreloadedState'
 import { getTitlePropsFromRoute } from './RouteTitleProps.js'
+import { getChapterByIndex } from '../server_data/PreloadedStateQueries.js'
 
-
+const ChapterPageWrapper = (props) => <ChapterPage getChapterByIndex={getChapterByIndex} {...props} />
 
 export default class RouterNavBar extends React.Component {
   render() {
@@ -30,7 +31,7 @@ export default class RouterNavBar extends React.Component {
       <NavBar {...titleProps}>
         <Route exact path="/" component={MediaList} />
         <Route exact path="/book/:bookId" component={ChapterList} />
-        <Route path="/book/:bookId/:chapterIndex" component={ChapterPage} />
+        <Route path="/book/:bookId/:chapterIndex" render={ChapterPageWrapper} />
         <Route path="/lyrics/:lyricsId" component={LyricsPage} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/feedback" component={SubmitFeedback} />

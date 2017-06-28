@@ -30,15 +30,6 @@ export const login = (plainUser, plainPass) => {
     })
 }
 
-export const addBookmark = (bookId, chapterIndex, bookmarkFraction) => {
-  return request.post('/api/bookmark')
-  .send({
-    bookId,
-    chapterIndex,
-    bookmarkFraction
-  })
-}
-
 export const sendFeedback = (text) => {
   return request.post('/api/feedback')
   .send({

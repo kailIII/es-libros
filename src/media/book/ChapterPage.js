@@ -1,45 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { readChapter, unauthorizedResponseHandler } from '../../api'
-import markdownToComponentArray from '../../markdown'
-import { getChapterByIndex } from '../../server_data/PreloadedStateQueries.js'
 import { findBookmark } from '../../storage/storage.js'
 import { scrollByFraction } from '../../dom/Scroll'
-import ProgressWheel from '../../comp/ProgressWheel'
+import ChapterPageView from './ChapterPageView.js'
 
 import './ChapterPage.css'
-
-const NextChapterButton = (props) => {
-  const bookId  = props.bookId
-  const chapterIndex  = props.chapterIndex
-  if (chapterIndex)
-    return (
-      <Link className="next-chapter" to={`/book/${bookId}/${chapterIndex}`}>
-        Siguiente Capitulo
-      </Link>
-    )
-  return null
-}
-
-const nextIndex = (bookId, i) => {
-  const newIndex = parseInt(i, 10) + 1
-  if (getChapterByIndex(bookId, newIndex))
-    return newIndex
-}
 
 class ChapterPage extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      markdown: ""
+      chapterText: '',
+      bookmark: undefined,
     }
-    this.bookmark = undefined
   }
 
-  pageHasChanged = (nextProps) => {
+  getNextChapterUrl = (bookId, i) => {
+    const getChapterByIndex = this.props.getChapterByIndex
+    const newIndex = parseInt(i, 10) + 1
+    if (getChapterByIndex(bookId, newIndex))
+      return `/book/${bookId}/${newIndex}`
+  }
 
+  pageWillChange = (nextProps) => {
     const {
       bookId,
       chapterIndex,
@@ -56,12 +42,12 @@ class ChapterPage extends Component {
     return (resp) => {
       const bookId = props.match.params.bookId
       const search = props.location.search
-       if (search && search.includes('bookmark=1')) {
-         this.bookmark = findBookmark(bookId)
-       }
-
-       const chapterText = resp.text
-       this.setState({ markdown: chapterText })
+      const chapterText = resp.text
+      const nextState = { chapterText }
+      if (search && search.includes('bookmark=1')) {
+        nextState.bookmark = findBookmark(bookId)
+      }
+      this.setState(nextState)
     }
   }
 
@@ -70,47 +56,62 @@ class ChapterPage extends Component {
       bookId,
       chapterIndex,
     } = props.match.params
+
     readChapter(bookId, chapterIndex)
       .send()
       .then(this.handleFetchChapterResponse(props), unauthorizedResponseHandler())
   }
 
-  renderChapterText = () => {
+  mapStateToViewProps = () => {
+    const {
+      getChapterByIndex,
+      match,
+    } = this.props
+
     const {
       bookId,
       chapterIndex,
-    } = this.props.match.params
-    const title = getChapterByIndex(bookId, chapterIndex)
-    const nextChapter = nextIndex(bookId, chapterIndex)
-    return (
-      <div>
-        <div className="container-markdown">
-          <h2 className="book-markdown">{title}</h2>
-          { markdownToComponentArray(this.state.markdown, 'book-markdown') }
-        </div>
-          <NextChapterButton bookId={bookId} chapterIndex={nextChapter} />
-      </div>
-    )
+    } = match.params
+
+    const chapterText = this.state.chapterText
+    if (chapterText === '')
+      return undefined
+    else {
+      return {
+        nextChapterUrl: this.getNextChapterUrl(bookId, chapterIndex),
+        text: chapterText,
+        title: getChapterByIndex(bookId, chapterIndex)
+      }
+    }
   }
 
-  renderProgressWheel = () => {
-    return <ProgressWheel />
+  scrollToBookmarkPosition = (prevChapterText) => {
+    const {
+          chapterText,
+          bookmark,
+        } = this.state
+    const didDownloadText = prevChapterText === ""
+                            && chapterText !== prevChapterText
+                            && bookmark
+
+    if (didDownloadText)
+      scrollByFraction(bookmark.fraction)
+  }
+
+  fetchChapterIfPageWillChange = (nextProps) => {
+    if (this.pageWillChange(nextProps)) {
+      this.setState({chapterText: ""})
+      this.fetchChapter(nextProps)
+    }
   }
 
   render() {
-    if (this.state.markdown === "")
-      return this.renderProgressWheel()
-    else
-      return this.renderChapterText()
-
-
+    const pageData = this.mapStateToViewProps()
+    return <ChapterPageView pageData={pageData} />
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.pageHasChanged(nextProps)) {
-      this.setState({markdown: ""})
-      this.fetchChapter(nextProps)
-    }
+    this.fetchChapterIfPageWillChange(nextProps)
   }
 
   componentDidMount() {
@@ -118,13 +119,14 @@ class ChapterPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const didDownloadMarkdown = prevState.markdown === ""
-                            && this.state.markdown !== prevState.markdown
-                            && this.bookmark
-    if (didDownloadMarkdown)
-      scrollByFraction(this.bookmark.fraction)
-    this.bookmark = undefined
+    this.scrollToBookmarkPosition(prevState.chapterText)
   }
+}
+
+ChapterPage.propTypes = {
+  getChapterByIndex: PropTypes.func.isRequired,
+  match: PropTypes.object,
+  location: PropTypes.object,
 }
 
 export default ChapterPage;

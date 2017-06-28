@@ -5,10 +5,15 @@ import Settings from 'react-icons/lib/md/settings';
 
 import { computeScrollFraction } from '../dom/Scroll.js'
 import { addBookmark } from '../storage/storage.js'
+import { validarBookmark } from '../validation.js'
 
 export const saveBookmark = (bookId, chapterIndex) => {
   if (!isNaN(bookId) && !isNaN(chapterIndex)) {
     const fraction = computeScrollFraction()
+
+    const error = validarBookmark(bookId, chapterIndex, fraction)
+    if (error) throw error
+
     addBookmark(bookId, chapterIndex, fraction)
     window.alert('Bookmark saved! If you close this tab, you will be able to resume reading from this position.')
   }

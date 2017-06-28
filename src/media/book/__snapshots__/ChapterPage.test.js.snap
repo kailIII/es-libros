@@ -1,0 +1,27 @@
+exports[`test Renders progress wheel until successful response is received 1`] = `
+<div
+  className="loader"
+  style={Object {}} />
+`;
+
+exports[`test Renders progress wheel until successful response is received 2`] = `
+<div>
+  <div
+    className="container-markdown">
+    <h2
+      className="book-markdown">
+      Chapter 1
+    </h2>
+    <p
+      className="book-markdown">
+      This is the page content.
+    </p>
+  </div>
+  <a
+    className="next-chapter"
+    href="/book/0/1"
+    onClick={[Function]}>
+    Siguiente Capitulo
+  </a>
+</div>
+`;
