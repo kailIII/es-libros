@@ -1,46 +1,43 @@
-import { bookIndex, lyricsIndex, changelog } from './PreloadedState.js'
+import { bookIndex, lyricsIndex, changelog } from "./PreloadedState.js";
 
-
-const findBookById = (bookId) => {
+const findBookById = bookId => {
   if (bookIndex) {
-    let id = bookId
-    if (typeof bookId === 'string')
-      id = parseInt(id, 10)
-    if (id >= 0 && id < bookIndex.length)
-      return bookIndex[id]
+    let id = bookId;
+    if (typeof bookId === "string") id = parseInt(id, 10);
+    if (id >= 0 && id < bookIndex.length) return bookIndex[id];
   }
-  return null
-}
+  return null;
+};
 
-const findSongById = (lyricsId) => {
-  let id = lyricsId
+const findSongById = lyricsId => {
+  let id = lyricsId;
   if (lyricsIndex) {
-    if (typeof lyricsId === 'string')
-      id = parseInt(id, 10)
-    if (id >= 0 && id < lyricsIndex.length)
-      return lyricsIndex[id]
-    }
-  return null
-}
+    if (typeof lyricsId === "string") id = parseInt(id, 10);
+    if (id >= 0 && id < lyricsIndex.length) return lyricsIndex[id];
+  }
+  return null;
+};
 
-const getChapterListById = (bookId) => {
-  const selectedBook = findBookById(bookId)
-  if (selectedBook)
-    return selectedBook.chapters
-  return null
-}
+const getChapterListById = bookId => {
+  const selectedBook = findBookById(bookId);
+  if (selectedBook) return selectedBook.chapters;
+  return null;
+};
 
 const getChapterByIndex = (bookId, chapterIndex) => {
-  const selectedBook = findBookById(bookId)
-  if (selectedBook
-    && chapterIndex >= 0 &&
-    chapterIndex < selectedBook.chapters.length)
-    return selectedBook.chapters[chapterIndex]
-  return null
-}
+  const selectedBook = findBookById(bookId);
+  if (
+    selectedBook &&
+    chapterIndex >= 0 &&
+    chapterIndex < selectedBook.chapters.length
+  )
+    return selectedBook.chapters[chapterIndex];
+  return null;
+};
 
-const changelogMarkdown = changelog ? changelog.reduce((acc, update) => acc + `- ${update.text}\n`, '')
-                                    : ''
+const changelogMarkdown = changelog
+  ? changelog.reduce((acc, update) => acc + `- ${update.text}\n`, "")
+  : "";
 
 module.exports = {
   bookIndex,
@@ -49,5 +46,5 @@ module.exports = {
   findBookById,
   findSongById,
   getChapterByIndex,
-  getChapterListById,
-}
+  getChapterListById
+};

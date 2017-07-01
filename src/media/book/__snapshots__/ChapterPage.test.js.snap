@@ -25,3 +25,41 @@ exports[`test Renders progress wheel until successful response is received 2`] =
   </a>
 </div>
 `;
+
+exports[`test clears bookmark from state when moving to next page 1`] = `
+<div>
+  <div
+    className="container-markdown">
+    <h2
+      className="book-markdown">
+      Capitulo 1
+    </h2>
+    <p
+      className="book-markdown">
+      This is the page content.
+    </p>
+  </div>
+  <a
+    className="next-chapter"
+    href="/book/0/1"
+    onClick={[Function]}>
+    Siguiente Capitulo
+  </a>
+</div>
+`;
+
+exports[`test clears bookmark from state when moving to next page 2`] = `
+<div>
+  <div
+    className="container-markdown">
+    <h2
+      className="book-markdown">
+      Capitulo 2
+    </h2>
+    <p
+      className="book-markdown">
+      This is the next page content.
+    </p>
+  </div>
+</div>
+`;

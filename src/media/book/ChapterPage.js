@@ -43,7 +43,7 @@ class ChapterPage extends Component {
       const bookId = props.match.params.bookId
       const search = props.location.search
       const chapterText = resp.text
-      const nextState = { chapterText }
+      const nextState = { chapterText, bookmark: undefined }
       if (search && search.includes('bookmark=1')) {
         nextState.bookmark = findBookmark(bookId)
       }
